@@ -21,8 +21,16 @@ const movieDatas = [
 {title: "Taken", typeOfMovie: "Action, Thriller", description: "Un homme dont la fille se fait enlever qu'il ne fallait pas énerver car il va chercher, trouver puis tuer à l'aide d'un homme qui va lire : bon chance, sur un bout de papier donc automatiquement c'est lui le kidnappeur.", affiche:"https://media.senscritique.com/media/000000097457/0/taken.jpg", rating:4, ratingCount:17 },
 {title: " American Sniper", typeOfMovie: "Biopic, Guerre", description: "Un mec qui quand il tire, ne raconte pas sa vie.", affiche:"https://media.senscritique.com/media/000020120544/0/american_sniper.jpg", rating:3, ratingCount:32 }
 ]
-  
+
+const[likeMovie, setLikeMovie] = useState([])
+
 const [movieList, setMovieList] = useState([]);
+
+function handleClickAddMovie (movieLiked) {
+  setLikeMovie([...likeMovie, movieLiked])
+console.log({likeMovie});
+}
+
 useEffect(() => {
   const movies = movieDatas.map((movie, i) => {
     return (
@@ -34,11 +42,13 @@ useEffect(() => {
         myAffiche={movie.affiche}
         note={movie.rating}
         nbVotes={movie.ratingCount}
+        handleClickParent={handleClickAddMovie}
       />
     );
   });
   setMovieList(movies);
 }, []);
+
 
 
   return (
@@ -56,11 +66,12 @@ useEffect(() => {
   </NavItem>
   <NavItem>
     <NavLink>
-      <Button type="Button"> 11 films </Button>
+      <Button type="Button"> {likeMovie} films </Button>
     </NavLink>
   </NavItem>
 </Nav>
-<div className='movies'>  
+<div className='movies'> 
+<h4>Vous avez sélectionné: { likeMovie.join(',') } </h4> 
 {movieList}
 </div>
  
