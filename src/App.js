@@ -13,29 +13,31 @@ function App() {
   const [myRatingMovie, setMyRatingMovie] = useState(0)
   const [myRatingStar, setMyRatingStar] = useState(null)
   const [hover, setHover] = useState(null)
-  
-  function lowratingmovie () {
-    if (myRatingMovie > 0) {
-      setMyRatingMovie(myRatingMovie-1)
-    }
-  }
- 
+  const [randomRating, setRandomRating] = useState(8)
+  const [currentRating, setCurrentRating] = useState(null)
+    const [numberofrates, setNumberofrates] = useState(2)
+    const [newNumberofrates, setNewNumberofrates] = useState(numberofrates)
+
+
+
    const stars = [...Array(10)].map((_,index) => 
     { 
-      const currentRating = index + 1;
+      const currentRatingFromStars = index + 1;
         return (
-      <label key={currentRating}>
+      <label key={currentRatingFromStars}>
         <input 
         style={{display:'none'}}
         type='radio' 
         name='rating' 
-        value={currentRating} 
-        onClick={()=>setMyRatingStar(currentRating)} 
+        value={currentRatingFromStars} 
+        onClick={()=>{
+          setMyRatingStar(currentRatingFromStars); 
+          setNewNumberofrates(numberofrates + 1)}} 
         />
         <FontAwesomeIcon 
-        color={currentRating <= (hover || myRatingStar) ? '#f1c40f' : "black"} 
+        color={currentRatingFromStars <= (hover || myRatingStar) ? '#f1c40f' : "black"} 
         icon={faStar} 
-        onMouseEnter={()=>setHover(currentRating)} 
+        onMouseEnter={()=>setHover(currentRatingFromStars)} 
         onMouseLeave={()=>setHover(null)}
         />
       </label>
@@ -43,7 +45,28 @@ function App() {
     }
   );
 
-  
+  useEffect(() => {
+    if (myRatingStar !== null) {
+      const newRandomRating =
+        (randomRating * numberofrates + myRatingStar) / newNumberofrates ;
+      setRandomRating(Math.round(newRandomRating));
+    }
+    
+  }, [numberofrates, newNumberofrates, myRatingStar, randomRating]);
+
+  const randomstars = [...Array(10)].map((_,index) => 
+  { 
+      return (
+    <label>
+      <FontAwesomeIcon 
+      color={randomRating <= 10 ? '#f1c40f' : "black"} 
+      icon={faStar} 
+      value={randomRating} 
+      />
+    </label>
+    )
+  }
+);
 
   function addratingmovie () {
     if (myRatingMovie < 10) {
@@ -100,21 +123,12 @@ function App() {
     <CardText>
       Mon avis 
       {stars}
-      <ButtonGroup size='sm'> 
-      <Button onClick={()=>{lowratingmovie()}}>-</Button> 
-      <Button onClick={()=>{addratingmovie()}}>+</Button> {myRatingMovie}
-      </ButtonGroup>
+ 
     </CardText>
     <CardText>
       Moyenne 
-      <FontAwesomeIcon icon={faStar} /> 
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
-      (8)
+      {randomstars}
+      ({randomRating}) {newNumberofrates}
     </CardText>
     <CardTitle tag="h5">
       Film title
