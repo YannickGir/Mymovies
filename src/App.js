@@ -1,9 +1,9 @@
 import './App.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, startTransition } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Card,CardBody, CardTitle, CardSubtitle,CardText, Nav, NavItem, NavLink, Button, ButtonGroup, Badge } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faVideo, faStar, faHeart } from '@fortawesome/free-solid-svg-icons'
+import {faVideo, faStar, faHeart, faDisplay } from '@fortawesome/free-solid-svg-icons'
 
 
 function App() {
@@ -11,10 +11,43 @@ function App() {
   const[watchMovie, setWatchMovie] = useState(false)
   const[countWatchMovie, setcountWatchMovie] = useState(0)
   const [myRatingMovie, setMyRatingMovie] = useState(0)
-
+  const [myRatingStar, setMyRatingStar] = useState(null)
+  const [hover, setHover] = useState(null)
+  
   function lowratingmovie () {
     if (myRatingMovie > 0) {
       setMyRatingMovie(myRatingMovie-1)
+    }
+  }
+ 
+   const stars = [...Array(10)].map((_,index) => 
+    { 
+      const currentRating = index + 1;
+        return (
+      <label key={currentRating}>
+        <input 
+        style={{display:'none'}}
+        type='radio' 
+        name='rating' 
+        value={currentRating} 
+        onClick={()=>setMyRatingStar(currentRating)} 
+        />
+        <FontAwesomeIcon 
+        color={currentRating <= (hover || myRatingStar) ? '#f1c40f' : "black"} 
+        icon={faStar} 
+        onMouseEnter={()=>setHover(currentRating)} 
+        onMouseLeave={()=>setHover(null)}
+        />
+      </label>
+      )
+    }
+  );
+
+  
+
+  function addratingmovie () {
+    if (myRatingMovie < 10) {
+      setMyRatingMovie(myRatingMovie+1)
     }
   }
 
@@ -28,6 +61,8 @@ function App() {
   
   console.log(likeMovie);
   console.log(watchMovie);
+
+
   return (
     <div className="App">
       <div className="wrapper">
@@ -64,16 +99,10 @@ function App() {
     </CardText>
     <CardText>
       Mon avis 
-      <FontAwesomeIcon icon={faStar} /> 
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
+      {stars}
       <ButtonGroup size='sm'> 
       <Button onClick={()=>{lowratingmovie()}}>-</Button> 
-      <Button onClick={()=>{setMyRatingMovie(myRatingMovie+1)}}>+</Button> {myRatingMovie}
+      <Button onClick={()=>{addratingmovie()}}>+</Button> {myRatingMovie}
       </ButtonGroup>
     </CardText>
     <CardText>
@@ -116,13 +145,7 @@ function App() {
     </CardText>
     <CardText>
       Mon avis 
-      <FontAwesomeIcon icon={faStar} /> 
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
+      {stars}
       <ButtonGroup size='sm'> 
       <Button>-</Button> 
       <Button>+</Button>
@@ -168,13 +191,7 @@ function App() {
     </CardText>
     <CardText>
       Mon avis 
-      <FontAwesomeIcon icon={faStar} /> 
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
+      {stars}
       <ButtonGroup size='sm'> 
       <Button>-</Button> 
       <Button>+</Button>
@@ -221,13 +238,7 @@ function App() {
     </CardText>
     <CardText>
       Mon avis 
-      <FontAwesomeIcon icon={faStar} /> 
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
+      {stars}
       <ButtonGroup size='sm'> 
       <Button>-</Button> 
       <Button>+</Button>
@@ -273,13 +284,7 @@ function App() {
     </CardText>
     <CardText>
       Mon avis 
-      <FontAwesomeIcon icon={faStar} /> 
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
+      {stars}
       <ButtonGroup size='sm'> 
       <Button>-</Button> 
       <Button>+</Button>
@@ -325,13 +330,7 @@ function App() {
     </CardText>
     <CardText>
       Mon avis 
-      <FontAwesomeIcon icon={faStar} /> 
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
-      <FontAwesomeIcon icon={faStar} />
+      {stars}
       <ButtonGroup size='sm'> 
       <Button>-</Button> 
       <Button>+</Button>
