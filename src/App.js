@@ -26,9 +26,12 @@ const[likeMovie, setLikeMovie] = useState([])
 
 const [movieList, setMovieList] = useState([]);
 
-function handleClickAddMovie (movieLiked) {
-  setLikeMovie([...likeMovie, movieLiked])
-console.log({likeMovie});
+const [moviesCount, setMoviesCount] = useState(0);
+
+var handleClickAddMovie = (movieLiked) =>{
+  // setLikeMovie([...likeMovie, movieLiked])
+  setMoviesCount(moviesCount+1)
+console.log("addmoviecount!");
 }
 
 useEffect(() => {
@@ -66,7 +69,7 @@ useEffect(() => {
   </NavItem>
   <NavItem>
     <NavLink>
-      <Button type="Button"> {likeMovie} films </Button>
+      <Button type="Button" onClick={handleClickAddMovie}> {moviesCount} films </Button>
     </NavLink>
   </NavItem>
 </Nav>

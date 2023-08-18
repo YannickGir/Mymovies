@@ -5,7 +5,7 @@ import {Card,CardBody, CardTitle, CardSubtitle,CardText, Nav, NavItem, NavLink, 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faVideo, faStar, faHeart, faDisplay } from '@fortawesome/free-solid-svg-icons'
 
-function Movie(props) {
+function Movie(props, handleClickParent, myTitle,) {
     const[likeMovie, setLikeMovie] = useState(false)
     const[watchMovie, setWatchMovie] = useState(false)
     const[countWatchMovie, setcountWatchMovie] = useState(0)
@@ -79,8 +79,9 @@ function Movie(props) {
     // console.log(watchMovie);
   
 
-    var handleClick = (title)=>{
-      props.handleClickParent(title);
+    var handleClick = ()=>{
+      setLikeMovie(!likeMovie);
+      props.handleClickParent();
     }
 
 
@@ -95,7 +96,7 @@ function Movie(props) {
     <CardBody >
     <CardText>
       
-        Like <FontAwesomeIcon onClick={()=>{setLikeMovie(!likeMovie); handleClick(props.myTitle)}} color={colorLike} icon={faHeart} className='pointer'/>
+        Like <FontAwesomeIcon onClick={()=>{ handleClick(props.myTitle)}} color={colorLike} icon={faHeart} className='pointer'/>
       </CardText>
       <CardText>
         Nombre de vues <FontAwesomeIcon color={colorMovie} icon={faVideo} onClick={()=>{setWatchMovie(!watchMovie); setcountWatchMovie(countWatchMovie + 1)}}/> <Badge>{countWatchMovie}</Badge>
@@ -130,3 +131,4 @@ function Movie(props) {
     }
 
     export default Movie;
+
