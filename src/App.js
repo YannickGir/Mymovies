@@ -1,10 +1,11 @@
 import './App.css';
 import { useState, useEffect, startTransition, Row } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Card,CardBody, CardTitle, CardSubtitle,CardText, Nav, NavItem, NavLink, Button, ButtonGroup, Badge } from 'reactstrap';
+import {Card,CardBody, CardTitle, CardSubtitle,CardText, Nav, NavItem, NavLink,  ButtonGroup, Badge } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faVideo, faStar, faHeart, faDisplay } from '@fortawesome/free-solid-svg-icons';
 import Movie from './Movie';
+import { Button, Popover, PopoverHeader, PopoverBody} from "reactstrap"
 
 
 function App() {
@@ -27,6 +28,9 @@ const[likeMovie, setLikeMovie] = useState([])
 const [movieList, setMovieList] = useState([]);
 
 const [moviesCount, setMoviesCount] = useState(0);
+
+const [popOverOpen, setpopOverOpen] = useState(false);
+const toogle = () => setpopOverOpen(!popOverOpen);
 
 var handleClickAddMovie = (movieLiked) =>{
   setLikeMovie([...likeMovie, movieLiked])
@@ -69,7 +73,21 @@ useEffect(() => {
   </NavItem>
   <NavItem>
     <NavLink>
-      <Button type="Button" onClick={handleClickAddMovie}> {moviesCount} films </Button>
+   
+      <Button  id="Popover1" type="Button" > {moviesCount} films </Button>
+      <Popover
+   placement="bottom"
+    target="Popover1"
+    isOpen={popOverOpen}
+    toggle={toogle}
+  >
+    <PopoverHeader>
+      Popover Title
+    </PopoverHeader>
+    <PopoverBody>
+      Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.
+    </PopoverBody>
+  </Popover>
     </NavLink>
   </NavItem>
 </Nav>
