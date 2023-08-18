@@ -81,7 +81,7 @@ function Movie(props, handleClickParent, myTitle,) {
 
     var handleClick = ()=>{
       setLikeMovie(!likeMovie);
-      props.handleClickParent();
+      props.handleClickParent(props.myTitle);
     }
 
 

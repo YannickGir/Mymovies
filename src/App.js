@@ -29,9 +29,9 @@ const [movieList, setMovieList] = useState([]);
 const [moviesCount, setMoviesCount] = useState(0);
 
 var handleClickAddMovie = (movieLiked) =>{
-  // setLikeMovie([...likeMovie, movieLiked])
+  setLikeMovie([...likeMovie, movieLiked])
   setMoviesCount(moviesCount+1)
-console.log("addmoviecount!");
+console.log({likeMovie});
 }
 
 useEffect(() => {
@@ -50,7 +50,7 @@ useEffect(() => {
     );
   });
   setMovieList(movies);
-}, [handleClickAddMovie]);
+}, [likeMovie]);
 
 
 
