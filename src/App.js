@@ -50,7 +50,7 @@ useEffect(() => {
     );
   });
   setMovieList(movies);
-}, []);
+}, [handleClickAddMovie]);
 
 
 
