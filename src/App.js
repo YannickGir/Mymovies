@@ -32,17 +32,27 @@ const [moviesCount, setMoviesCount] = useState(0);
 const [popOverOpen, setpopOverOpen] = useState(false);
 const toogle = () => setpopOverOpen(!popOverOpen);
 
-var handleClickAddMovie = (movieLiked) =>{
-  setLikeMovie([...likeMovie, movieLiked])
-  setMoviesCount(moviesCount+1)
-console.log({likeMovie});
-}
+var handleClickAddMovie = (movieLiked) => {
+  // const isAlreadyLiked = likeMovie.some((likedMovie) => likedMovie.key === movieLiked.id);
+  const isAlreadyLiked  = likeMovie.find(movie => movie.myKey == movieLiked.myKey);
+  console.log( likeMovie);
+    if (!isAlreadyLiked) 
+      console.log("isAlreadyLiked:", isAlreadyLiked)
+      setLikeMovie([...likeMovie, movieLiked]);
+      setMoviesCount(moviesCount + 1);
+  
+};
+
+var handleClickDeleteMovie = (movieLiked) => {
+  setMoviesCount(moviesCount-1);
+  setLikeMovie(likeMovie.filter(movie => movie.myKey != movieLiked.myKey));
+};
 
 useEffect(() => {
   const movies = movieDatas.map(movie => {
     return (
       <Movie
-        key={movie.id}
+        myKey={movie.id}
         myTitle={movie.title}
         myType={movie.typeOfMovie}
         myDescription={movie.description}
@@ -50,6 +60,7 @@ useEffect(() => {
         note={movie.rating}
         nbVotes={movie.ratingCount}
         handleClickParent={handleClickAddMovie}
+        handleClickDeleteParent={handleClickDeleteMovie}
       />
     )
   })
@@ -67,7 +78,7 @@ var cardWish = likeMovie.map((movie, i) => (
             alt={movie.title}
             style={{ width: '50px', height: 'auto' }}
           />
-          <div className="title">{movie.title}</div>
+          <div className="title">{movie.title} {movie.id}</div>
         </div>
       </ListGroupItem>
     </ListGroup>
