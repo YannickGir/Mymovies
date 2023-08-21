@@ -81,7 +81,7 @@ function Movie(props, handleClickParent, myTitle,) {
 
     var handleClick = ()=>{
       setLikeMovie(!likeMovie);
-      props.handleClickParent(props.myTitle);
+      props.handleClickParent({title:props.myTitle, affiche:props.myAffiche});
     }
 
 
@@ -96,7 +96,7 @@ function Movie(props, handleClickParent, myTitle,) {
     <CardBody >
     <CardText>
       
-        Like <FontAwesomeIcon onClick={()=>{ handleClick(props.myTitle)}} color={colorLike} icon={faHeart} className='pointer'/>
+        Like <FontAwesomeIcon onClick={()=>{ handleClick()}} color={colorLike} icon={faHeart} className='pointer'/>
       </CardText>
       <CardText>
         Nombre de vues <FontAwesomeIcon color={colorMovie} icon={faVideo} onClick={()=>{setWatchMovie(!watchMovie); setcountWatchMovie(countWatchMovie + 1)}}/> <Badge>{countWatchMovie}</Badge>

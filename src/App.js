@@ -1,7 +1,7 @@
 import './App.css';
 import { useState, useEffect, startTransition, Row } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {ListGroup, ListGroupItemText, ListGroupItem, Card,CardBody, CardTitle, CardSubtitle,CardText, Nav, NavItem, NavLink,  ButtonGroup, Badge } from 'reactstrap';
+import {Image, ListGroup, ListGroupItemText, ListGroupItem, Card,CardBody, CardTitle, CardSubtitle,CardText, Nav, NavItem, NavLink,  ButtonGroup, Badge } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faVideo, faStar, faHeart, faDisplay } from '@fortawesome/free-solid-svg-icons';
 import Movie from './Movie';
@@ -58,13 +58,21 @@ useEffect(() => {
 
 
 var cardWish = likeMovie.map((movie, i) => (
-   <ListGroup key={i}>
-  <ListGroupItem >
-  {movie}
-  {console.log(movie)}
-</ListGroupItem>
-</ListGroup>
- ));
+  <div className='horizontal card' key={i}>
+    <ListGroup>
+      <ListGroupItem>
+        <div className="flex-row">
+          <img
+            src={movie.affiche}
+            alt={movie.title}
+            style={{ width: '50px', height: 'auto' }}
+          />
+          <div className="title">{movie.title}</div>
+        </div>
+      </ListGroupItem>
+    </ListGroup>
+  </div>
+));
 
 
 
