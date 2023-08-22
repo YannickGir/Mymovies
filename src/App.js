@@ -35,9 +35,9 @@ const toogle = () => setpopOverOpen(!popOverOpen);
 var handleClickAddMovie = (movieLiked) => {
   // const isAlreadyLiked = likeMovie.some((likedMovie) => likedMovie.key === movieLiked.id);
   const isAlreadyLiked  = likeMovie.find(movie => movie.myKey == movieLiked.myKey);
-  console.log( likeMovie);
+  // console.log( likeMovie);
     if (!isAlreadyLiked) 
-      console.log("isAlreadyLiked:", isAlreadyLiked)
+      // console.log("isAlreadyLiked:", isAlreadyLiked)
       setLikeMovie([...likeMovie, movieLiked]);
       setMoviesCount(moviesCount + 1);
   
@@ -46,10 +46,15 @@ var handleClickAddMovie = (movieLiked) => {
 var handleClickDeleteMovie = (movieLiked) => {
   setMoviesCount(moviesCount-1);
   setLikeMovie(likeMovie.filter(movie => movie.myKey != movieLiked.myKey));
+  console.log( likeMovie);
 };
 
 useEffect(() => {
   const movies = movieDatas.map(movie => {
+    var state = cardWish.find(moviewish => moviewish.myKey == movie.myKey)
+    var isInside = false
+    if (state != undefined) isInside = true
+
     return (
       <Movie
         myKey={movie.id}
@@ -61,6 +66,7 @@ useEffect(() => {
         nbVotes={movie.ratingCount}
         handleClickParent={handleClickAddMovie}
         handleClickDeleteParent={handleClickDeleteMovie}
+        isInside = {isInside}
       />
     )
   })
@@ -71,7 +77,7 @@ useEffect(() => {
 var cardWish = likeMovie.map((movie, i) => (
   <div className='horizontal card' key={i}>
     <ListGroup>
-      <ListGroupItem>
+      <ListGroupItem onClick={()=>{ handleClickDeleteMovie(movie)}}>
         <div className="flex-row">
           <img
             src={movie.affiche}

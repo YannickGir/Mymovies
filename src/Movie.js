@@ -67,9 +67,9 @@ function Movie(props) {
     }
   );
   
-      if (likeMovie == false)
-      var colorLike = {} 
-      else colorLike ='#e74c3c'
+      if (props.isInside)
+      colorLike ='#e74c3c'
+      else var colorLike = {} 
    
       if (watchMovie == false)
       var colorMovie = {}
@@ -79,7 +79,7 @@ function Movie(props) {
     // console.log(watchMovie);
   
     var changeLiked = () => {
-      if (likeMovie == true) {
+      if (props.isInside == true) {
          props.handleClickDeleteParent({title:props.myTitle, myKey:props.myKey });
       }
       else {
